@@ -1,0 +1,20 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 18
+    commands:
+      - echo Installing backend dependencies...
+      - cd backend
+      - npm install
+  build:
+    commands:
+      - echo Build phase completed.
+  post_build:
+    commands:
+      - echo Starting Node.js app with PM2...
+      - pm2 start app.js || pm2 restart all
+artifacts:
+  files:
+    - '**/*'
