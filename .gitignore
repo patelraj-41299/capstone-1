@@ -1,6 +1,21 @@
+# Node
+node_modules/
+
+# Environment variables
+.env
+backend/.env
+
+# Terraform
 .terraform/
 *.tfstate
 *.tfstate.backup
 .terraform.lock.hcl
+
+# AWS keys
 *.pem
-node_modules/
+
+# Mac OS junk
+.DS_Store
+
+# Mistaken folders
+https:/
