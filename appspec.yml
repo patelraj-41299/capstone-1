@@ -2,9 +2,9 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /home/ec2-user/cap-new
+    destination: /home/ubuntu/capstone-1
 hooks:
   AfterInstall:
-    - location: scripts/userdata.sh
+    - location: scripts/start_pm2.sh
       timeout: 300
-      runas: root
+      runas: ubuntu
