@@ -3,7 +3,7 @@ const AWS = require('aws-sdk');
 const cors = require('cors');
 require('dotenv').config();
 
-// 👇 TEMPORARY: Use .env credentials (for testing only)
+// 👇 AWS config using .env (for secure credential loading)
 AWS.config.update({
   region: 'us-east-1',
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -15,12 +15,14 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+// Health check endpoint for ALB
 app.get('/health', (req, res) => res.send('OK'));
 
+// Form submission handler
 app.post('/submit', (req, res) => {
   const { name, age, surname } = req.body;
 
-  console.log("Received:", name, age, surname); // 👈 log for debug
+  console.log("Received:", name, age, surname);
 
   const params = {
     TableName: 'mytable',
@@ -34,7 +36,7 @@ app.post('/submit', (req, res) => {
 
   dynamoDB.put(params, (err) => {
     if (err) {
-      console.error('DynamoDB Error:', err); // 👈 log error
+      console.error('DynamoDB Error:', err);
       res.status(500).send('Error saving to DynamoDB');
     } else {
       res.send('Data saved successfully');
@@ -42,4 +44,5 @@ app.post('/submit', (req, res) => {
   });
 });
 
+// Start the server
 app.listen(3000, () => console.log('Server running on port 3000'));
