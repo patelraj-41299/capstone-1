@@ -10,11 +10,12 @@ phases:
       - npm install
   build:
     commands:
-      - echo Build phase completed.
+      - echo Build phase completed. No additional build steps.
   post_build:
     commands:
-      - echo Starting Node.js app with PM2...
-      - pm2 start app.js || pm2 restart all
+      - echo Build completed. Preparing for deployment.
+
 artifacts:
   files:
     - '**/*'
+  base-directory: .
