@@ -15,10 +15,15 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// Health check endpoint for ALB
+// ✅ Root route for welcome message or ALB testing
+app.get('/', (req, res) => {
+  res.send('Welcome to Capstone Backend!');
+});
+
+// ✅ Health check endpoint for ALB
 app.get('/health', (req, res) => res.send('OK'));
 
-// Form submission handler
+// ✅ Form submission handler
 app.post('/submit', (req, res) => {
   const { name, age, surname } = req.body;
 
@@ -44,5 +49,5 @@ app.post('/submit', (req, res) => {
   });
 });
 
-// Start the server
+// ✅ Start the server
 app.listen(3000, () => console.log('Server running on port 3000'));
