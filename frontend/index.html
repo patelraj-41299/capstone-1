@@ -1,34 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Simple Web Form</title>
+  <title>Capstone Form</title>
 </head>
 <body>
-    <h1>Enter Your Details</h1>
-    <form id="userForm">
-        <label>Name:</label><input type="text" id="name" required><br><br>
-        <label>Age:</label><input type="text" id="age" required><br><br>
-        <label>Surname:</label><input type="text" id="surname" required><br><br>
-        <button type="submit">Submit</button>
-    </form>
+  <h1>Submit Your Info</h1>
+  <form id="dataForm">
+    <label>Name:</label><br>
+    <input type="text" id="name" required><br>
+    <label>Surname:</label><br>
+    <input type="text" id="surname" required><br>
+    <label>Age:</label><br>
+    <input type="number" id="age" required><br><br>
+    <button type="submit">Submit</button>
+  </form>
 
-    <script>
-        const API_URL = 'http://web-alb-new-1254195510.us-east-1.elb.amazonaws.com/submit';
-        document.getElementById('userForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const name = document.getElementById('name').value;
-            const age = document.getElementById('age').value;
-            const surname = document.getElementById('surname').value;
+  <p id="responseMsg"></p>
 
-            await fetch(API_URL, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ name, age, surname }),
-            });
+  <script>
+    document.getElementById('dataForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const surname = document.getElementById('surname').value;
+      const age = document.getElementById('age').value;
 
-            alert('Data submitted successfully!');
-        });
-    </script>
+      const response = await fetch('http://web-alb-new-1254195510.us-east-1.elb.amazonaws.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, surname, age })
+      });
+
+      const text = await response.text();
+      document.getElementById('responseMsg').innerText = text;
+    });
+  </script>
 </body>
 </html>
