@@ -1,10 +1,17 @@
 version: 0.0
 os: linux
+
 files:
   - source: /
     destination: /home/ubuntu/capstone-1
+
 hooks:
-  AfterInstall:
-    - location: scripts/start_pm2.sh
+  BeforeInstall:
+    - location: infrastructure/scripts/install_node_pm2.sh
       timeout: 300
-      runas: ubuntu
+      runas: root
+
+  AfterInstall:
+    - location: infrastructure/scripts/start_pm2.sh
+      timeout: 600
+      runas: root

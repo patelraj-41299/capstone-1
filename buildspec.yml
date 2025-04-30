@@ -17,5 +17,7 @@ phases:
 
 artifacts:
   files:
-    - '**/*'
+    - appspec.yml
+    - infrastructure/scripts/**     # ✅ FIXED: correct path to include your real shell scripts
+    - backend/**
   base-directory: .

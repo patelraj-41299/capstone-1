@@ -6,13 +6,13 @@ apt-get update -y
 apt-get install -y nodejs
 npm install -g pm2
 
-# Set correct ownership
+# Set correct ownership for deployment directory
 chown -R ubuntu:ubuntu /home/ubuntu/capstone-1
 
 # Navigate to the backend app
 cd /home/ubuntu/capstone-1/backend
 
-# Install dependencies and start app as ubuntu
+# Install dependencies and start app as ubuntu user
 sudo -u ubuntu npm install
 sudo -u ubuntu pm2 delete all || true
 sudo -u ubuntu pm2 start app.js --name "capstone-backend"
